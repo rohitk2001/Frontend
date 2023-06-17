@@ -70,13 +70,13 @@ function Home() {
 
 	return (
 		<div>
-			<div class="jumbotron text-center">
-				<h1 class="display-4">Welcome to Incident Management !!</h1>
-				<p class="lead">
+			<div className="jumbotron text-center">
+				<h1 className="display-4">Welcome to Incident Management !!</h1>
+				<p className="lead">
 					Easily report and track incidents in real-time, empowering our team to
 					promptly address and resolve them.
 				</p>
-				<hr class="my-4" />
+				<hr className="my-4" />
 				<p>
 					Our dedicated platform provides a streamlined and centralized approach
 					to managing incidents, ensuring minimal disruption to our operations
@@ -89,7 +89,7 @@ function Home() {
 				</p> */}
 			</div>
 
-			<div class="row">
+			<div className="row">
 				{incidents.length > 0 ? (
 					incidents.map((item) => (
 						<InciCard incident={item} handleDel={deleteIncident} />

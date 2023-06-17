@@ -21,11 +21,11 @@ function Navbar() {
 	return (
 		<div>
 			{/* <!-- Navbar --> */}
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 				{/* <!-- Container wrapper --> */}
-				<div class="container">
+				<div className="container">
 					{/* <!-- Navbar brand --> */}
-					<a class="navbar-brand" href="#">
+					<a className="navbar-brand" href="#">
 						<img
 							id="lowes-logo"
 							src={Loweslogo2}
@@ -37,7 +37,7 @@ function Navbar() {
 
 					{/* <!-- Toggle button --> */}
 					<button
-						class="navbar-toggler"
+						className="navbar-toggler"
 						type="button"
 						data-mdb-toggle="collapse"
 						data-mdb-target="#navbarSupportedContent"
@@ -45,22 +45,22 @@ function Navbar() {
 						aria-expanded="false"
 						aria-label="Toggle navigation"
 					>
-						<i class="fas fa-bars"></i>
+						<i className="fas fa-bars"></i>
 					</button>
 
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav ms-3">
-							<li class="nav-item me-3">
+					<div className="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul className="navbar-nav ms-3">
+							<li className="nav-item me-3">
 								<NavLink to="/" className="nav-link d-flex align-items-center">
 									<span>Home</span>
 								</NavLink>
 							</li>
 						</ul>
 
-						<form class="d-flex align-items-center w-100 form-search">
-							<div class="input-group">
+						<form className="d-flex align-items-center w-100 form-search">
+							<div className="input-group">
 								<button
-									class="btn btn-light dropdown-toggle shadow-0"
+									className="btn btn-light dropdown-toggle shadow-0"
 									type="button"
 									data-mdb-toggle="dropdown"
 									aria-expanded="false"
@@ -68,11 +68,11 @@ function Navbar() {
 								>
 									All
 								</button>
-								<ul class="dropdown-menu dropdown-menu-dark fa-ul">
+								<ul className="dropdown-menu dropdown-menu-dark fa-ul">
 									<li>
-										<a class="dropdown-item" href="#">
-											<span class="fa-li pe-2">
-												<i class="fas fa-search"></i>
+										<a className="dropdown-item" href="#">
+											<span className="fa-li pe-2">
+												<i className="fas fa-search"></i>
 											</span>
 											All
 										</a>
@@ -80,20 +80,20 @@ function Navbar() {
 								</ul>
 								<input
 									type="search"
-									class="form-control"
+									className="form-control"
 									placeholder="Search By UserId"
 									aria-label="Search"
 									value={searchVal}
 									onChange={handleChange}
 								/>
 							</div>
-							<a href="#!" class="text-white">
-								<i class="fas fa-search ps-3"></i>
+							<a href="#!" className="text-white">
+								<i className="fas fa-search ps-3"></i>
 							</a>
 						</form>
 
-						<ul class="navbar-nav ms-3">
-							<li class="nav-item me-3">
+						<ul className="navbar-nav ms-3">
+							<li className="nav-item me-3">
 								<NavLink
 									to="/addIncident"
 									className="nav-link d-flex align-items-center"
@@ -103,8 +103,8 @@ function Navbar() {
 							</li>
 						</ul>
 
-						<ul class="navbar-nav ms-3">
-							<li class="nav-item me-3">
+						<ul className="navbar-nav ms-3">
+							<li className="nav-item me-3">
 								<NavLink
 									to="/addUser"
 									className="nav-link d-flex align-items-center"

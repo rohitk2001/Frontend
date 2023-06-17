@@ -249,7 +249,7 @@ function AddUser() {
 					>
 						<button
 							type="button submit"
-							class="btn btn-success"
+							className="btn btn-success"
 							style={{ width: "15%" }}
 						>
 							Done
