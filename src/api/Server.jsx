@@ -1,2 +1,2 @@
-const base_url = "http://localhost:8083";
+const base_url = "https://incident-management-backend-production.up.railway.app/";
 export default base_url;
