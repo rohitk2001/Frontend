@@ -53,15 +53,16 @@ function InciCard({ incident, handleDel }) {
 						{incident.inciName}
 					</CardSubtitle>
 				</CardBody>
+				<hr/>
 				<CardBody>
-                <p>Description:</p>
+                <p style={{fontFamily:"sans-serif"}}>Description:</p>
 					<CardText>
 						{incident.description}
 					</CardText>
-                    <CardText>Priority: {incident.inciPriority}</CardText>
-                    <CardText>Category: {incident.inciCategory}</CardText>
-                    <CardText>Status: {incident.inciStatus}</CardText>
-                    <CardText>User Details:
+                    <CardText><span style={{fontFamily:"sans-serif"}}>Priority: </span><span style={{fontWeight:"bold"}}>{incident.inciPriority}</span></CardText>
+                    <CardText><span style={{fontFamily:"sans-serif"}}>Category: </span><span style={{fontWeight:"bold"}}>{incident.inciCategory}</span></CardText>
+                    <CardText><span style={{fontFamily:"sans-serif"}}>Status: </span><span style={{fontWeight:"bold"}}>{incident.inciStatus}</span></CardText>
+                    <CardText style={{fontFamily:"sans-serif"}}>User Details:
                         <ul>
                             <li>Name: {user.userName}</li>
                             <li>Id: {incident.user.userId}</li>
@@ -69,6 +70,7 @@ function InciCard({ incident, handleDel }) {
                         </ul>
                     </CardText>
 				</CardBody>
+				<hr/>
                 <CardBody>
                     <Container className="text-center">
                     <button type="button" class="btn btn-info" style={{color: 'white', marginRight:"10%"}} onClick={handleClick}>Update</button>
