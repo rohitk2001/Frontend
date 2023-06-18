@@ -336,10 +336,10 @@ function AddIncident() {
                   <Input
                     name="radio3"
                     type="radio"
-                    value={"In_progress"}
+                    value={"In_Progress"}
                     onChange={handleStatus}
                     required
-                    checked={inciStatus === "In_progress"}
+                    checked={inciStatus === "In_Progress"}
                   />{" "}
                   <Label check>Inprogress</Label>
                 </FormGroup>
