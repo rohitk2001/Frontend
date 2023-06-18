@@ -139,6 +139,17 @@ function AddIncident() {
     );
   };
 
+  const clearAll = () => {
+    setUser("");
+    setDescription("");
+    setInciCategory("");
+    setInciName("");
+    setInciPriority("");
+    setInciStatus("");
+    setIncident("");
+    setUserId("");
+  }
+
   return (
     <div>
       <h2 className="text-center" style={{ marginTop: "3%" }}>
@@ -289,10 +300,10 @@ function AddIncident() {
                   <Input
                     name="radio2"
                     type="radio"
-                    value={"Accessories_Issues"}
+                    value={"Accessory_Issues"}
                     onChange={handleCategory}
                     required
-                    checked={inciCategory === "Accessories_Issues"}
+                    checked={inciCategory === "Accessory_Issues"}
                   />{" "}
                   <Label check>Accessories Issues</Label>
                 </FormGroup>
@@ -324,10 +335,10 @@ function AddIncident() {
                   <Input
                     name="radio3"
                     type="radio"
-                    value={"Inprogress"}
+                    value={"In_progress"}
                     onChange={handleStatus}
                     required
-                    checked={inciStatus === "Inprogress"}
+                    checked={inciStatus === "In_progress"}
                   />{" "}
                   <Label check>Inprogress</Label>
                 </FormGroup>
@@ -391,8 +402,8 @@ function AddIncident() {
                 id="userName"
                 name="userName"
                 type="text"
-                placeholder={user.userName}
-                defaultValue={user.userName}
+                placeholder={user ? user.userName : ""}
+                defaultValue={user ? user.userName : ""}
                 readOnly
               />
             </FormGroup>
@@ -460,6 +471,7 @@ function AddIncident() {
                 type="reset"
                 className="btn btn-dark"
                 style={{ marginRight: "30%", width: "15%" }}
+                onClick={clearAll}
               >
                 Clear
               </button>

@@ -15,7 +15,7 @@ function Navbar() {
 		setSearch(e.target.value);
 		//  console.log(e.target.value)
 		console.log(searchVal);
-		navigate("/", { state: { id: e.target.value } });
+		navigate("/", { state: { userId: e.target.value } });
 	};
 
 	return (

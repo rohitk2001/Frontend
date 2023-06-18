@@ -25,7 +25,7 @@ function InciCard({ incident, handleDel }) {
 	}
 
 	useEffect(() => {
-		console.log(incident);
+		//console.log(incident);
 		axios.get(`${base_url}/user/${incident.user.userId}`).then(
 			(response) => {
 			  console.log(response.data);
@@ -48,7 +48,7 @@ function InciCard({ incident, handleDel }) {
 				}}
 			>
 				<CardBody>
-					<CardTitle tag="h5">{incident.id}</CardTitle>
+					<CardTitle tag="h5">{incident.inciId}</CardTitle>
 					<CardSubtitle className="mb-2 text-muted" tag="h6">
 						{incident.inciName}
 					</CardSubtitle>
@@ -63,9 +63,9 @@ function InciCard({ incident, handleDel }) {
                     <CardText>Status: {incident.inciStatus}</CardText>
                     <CardText>User Details:
                         <ul>
-                            <li>Name: {incident.userName}</li>
-                            <li>Id: {incident.userId}</li>
-                            <li>Department: {incident.userDept}</li>
+                            <li>Name: {user.userName}</li>
+                            <li>Id: {incident.user.userId}</li>
+                            <li>Department: {user.department}</li>
                         </ul>
                     </CardText>
 				</CardBody>
