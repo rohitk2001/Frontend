@@ -133,8 +133,9 @@ function AddIncident() {
         setIncident({ ...incident, user: response.data });
       },
       (error) => {
-        alert("Something went wrong: " + error.message);
+        alert("Invalid User-id entered!!!");
         console.log(error);
+        setUser("");
       }
     );
   };

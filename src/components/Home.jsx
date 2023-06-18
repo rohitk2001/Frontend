@@ -61,7 +61,7 @@ function Home() {
 		console.log(typeof location.state.userId);
 
 		// This line ensures that whenever we pass in empty text in search box it loads all the Incidents on Home
-		if (location.state.userId = "") getfiltered();
+		if (location.state.userId != "") getfiltered();
 		else getAllIncidents();
 
 		console.log(incidents);
