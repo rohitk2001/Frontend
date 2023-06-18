@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, FormGroup, Label, Input, Col, Container } from "reactstrap";
 import base_url from "../api/Server";
 import { useLocation } from "react-router-dom";
@@ -8,65 +8,88 @@ function AddIncident() {
   // useLocation Hook for retrieving the data sent to the current URL using useNavigation
   const location = useLocation();
 
-  // let incident = {id:"", inciName:"", description:"", inciPriority:"", inciCategory:"", inciStatus:"", userName:"", userId:"", userDept:""};
-  let incident = {};
-
   // incis represent a single Incident data
-  const [incis, setIncidents] = useState(() => {
-    if (location.state !== null) return location.state;
-    else return {};
-  });
-  const [data, setData] = useState();
-  const [user, setUser] = useState({});
+  // const [incis, setIncidents] = useState(() => {
+  //   console.log("location.state: ", location.state);
+  //   if (location.state !== null) return location.state;
+  //   else return {};
+  // });
 
-  if (location.state !== null) {
-    incident = location.state;
+  const initialiser = (prop) => {
+    if (location.state !== null) {
+      return location.state[prop];
+    } else return "";
   }
 
-  function handleForm(e) {
-    console.log(incis);
 
-    if (Object.keys(incis).length === 0)
+  const [user, setUser] = useState(() => {
+    if (location.state !== null) return location.state.user;
+    else return {};
+  });
+  const [inciName, setInciName] = useState(initialiser("inciName"));
+  const [inciCategory, setInciCategory] = useState(initialiser("inciCategory"));
+  const [inciStatus, setInciStatus] = useState(initialiser("inciStatus"));
+  const [inciPriority, setInciPriority] = useState(initialiser("inciPriority"));
+  const [description, setDescription] = useState(initialiser("description"));
+  const [incident, setIncident] = useState(()=>{
+    if (location.state !== null) return location.state;
+    else return {};
+  })
+
+  console.log("Incident Object on load ", incident);
+
+  function handleForm(e) {
+    e.preventDefault();
+    // console.log("Incident Object: ", incis);
+
+    if (Object.keys(incident).length === 0)
       alert("No Changes Found!! You may return to Home if you dont intend to");
     else {
       if (location.state !== null) {
-        updateData(incis);
+        let inci = {
+          inciName,
+          inciCategory,
+          inciPriority,
+          inciStatus,
+          description,
+          user,
+        };
+        updateData(inci);
       } else {
-        // console.log("incis: ", incis);
-        postData(incis);
+        let incident = {
+          inciName,
+          inciCategory,
+          inciPriority,
+          inciStatus,
+          description,
+          user,
+        };
+        postData(incident);
         e.target.reset();
       }
     }
-
-    e.preventDefault();
   }
 
   const handlePriority = (e) => {
-    // console.log(e.target.value);
-    incident.inciPriority = e.target.value;
-    setIncidents({ ...incis, inciPriority: e.target.value });
-    console.log(incis);
+    setInciPriority(e.target.value);
+  };
+
+  const handleDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   const handleStatus = (e) => {
-    incident.inciStatus = e.target.value;
-    setIncidents({ ...incis, inciStatus: e.target.value });
-    console.log(incis);
+    setInciStatus(e.target.value);
   };
 
   const handleCategory = (e) => {
-    incident.inciCategory = e.target.value;
-    setIncidents({ ...incis, inciCategory: e.target.value });
-    console.log(incis);
+    setInciCategory(e.target.value);
   };
-
-  const handleDept = () => {
-    incident.userDept = user ? user.department : "";
-    setIncidents({ ...incis, userDept: incident.userDept });
+  const handleName = (e) => {
+    setInciName(e.target.value);
   };
 
   const postData = (data) => {
-    setIncidents({ ...incis, user });
     axios.post(`${base_url}/incidents`, data).then(
       (response) => {
         console.log(response);
@@ -81,8 +104,8 @@ function AddIncident() {
   };
 
   const updateData = (data) => {
-    console.log(data);
-    axios.put(`${base_url}/incidents`, data).then(
+    console.log("incident for updation", data);
+    axios.put(`${base_url}/incidents/${incident.inciId}`, data).then(
       (response) => {
         console.log(response);
         console.log("Success Updating Data");
@@ -95,7 +118,10 @@ function AddIncident() {
     );
   };
 
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(()=>{
+    if(user!=null) return user.userId
+    else return ''
+  });
 
   const getData = async (e) => {
     e.preventDefault();
@@ -104,13 +130,13 @@ function AddIncident() {
       (response) => {
         console.log(response.data);
         setUser(response.data);
+        setIncident({ ...incident, user: response.data });
       },
       (error) => {
-        alert("OOPS !! Some issue encountered. Please Try again");
-        console.log("Something went wrong while Posting To server");
+        alert("Something went wrong: " + error.message);
+        console.log(error);
       }
     );
-    handleDept();
   };
 
   return (
@@ -131,10 +157,10 @@ function AddIncident() {
                   placeholder="System Generated"
                   type="text"
                   readOnly
-                  value={incident.id}
-                  onChange={(e) => {
-                    setIncidents({ ...incis, id: e.target.value });
-                  }}
+                  value={incident ? incident.id : ""}
+                  // onChange={(e) => {
+                  //   setIncidents({ ...incis, id: e.target.value });
+                  // }}
                 />
               </FormGroup>
             </Col>
@@ -142,15 +168,13 @@ function AddIncident() {
               <FormGroup>
                 <Label for="inciName">Name</Label>
                 <Input
-                  required="required"
+                  required
                   id="inciName"
                   name="inciName"
                   placeholder="Enter Incident Name"
                   type="text"
-                  defaultValue={incident.inciName}
-                  onChange={(e) => {
-                    setIncidents({ ...incis, inciName: e.target.value });
-                  }}
+                  value={inciName}
+                  onChange={(e) => handleName(e)}
                 />
               </FormGroup>
             </Col>
@@ -162,10 +186,8 @@ function AddIncident() {
               name="desc"
               placeholder="Describe Incident"
               type="textarea"
-              defaultValue={incident.description}
-              onChange={(e) => {
-                setIncidents({ ...incis, description: e.target.value });
-              }}
+              value={description}
+              onChange={(e) => handleDescription(e)}
             />
           </FormGroup>
 
@@ -183,7 +205,7 @@ function AddIncident() {
                     type="radio"
                     value={"Critical"}
                     onChange={handlePriority}
-                    checked={incis.inciPriority === "Critical"}
+                    checked={inciPriority === "Critical"}
                   />{" "}
                   <Label check>Critical</Label>
                 </FormGroup>
@@ -196,7 +218,7 @@ function AddIncident() {
                     type="radio"
                     value={"High"}
                     onChange={handlePriority}
-                    checked={incis.inciPriority === "High"}
+                    checked={inciPriority === "High"}
                   />{" "}
                   <Label check>High</Label>
                 </FormGroup>
@@ -209,7 +231,7 @@ function AddIncident() {
                     value={"Medium"}
                     required
                     onChange={handlePriority}
-                    checked={incis.inciPriority === "Medium"}
+                    checked={inciPriority === "Medium"}
                   />{" "}
                   <Label check>Medium</Label>
                 </FormGroup>
@@ -221,7 +243,7 @@ function AddIncident() {
                     type="radio"
                     value={"Low"}
                     required
-                    checked={incis.inciPriority === "Low"}
+                    checked={inciPriority === "Low"}
                     onChange={handlePriority}
                   />{" "}
                   <Label check>Low</Label>
@@ -244,7 +266,7 @@ function AddIncident() {
                     type="radio"
                     value={"Hardware_Issues"}
                     onChange={handleCategory}
-                    checked={incis.inciCategory === "Hardware_Issues"}
+                    checked={inciCategory === "Hardware_Issues"}
                   />{" "}
                   <Label check>Hardware Issues</Label>
                 </FormGroup>
@@ -257,7 +279,7 @@ function AddIncident() {
                     value={"Software_Issues"}
                     onChange={handleCategory}
                     required
-                    checked={incis.inciCategory === "Software_Issues"}
+                    checked={inciCategory === "Software_Issues"}
                   />{" "}
                   <Label check>Software Issues</Label>
                 </FormGroup>
@@ -270,7 +292,7 @@ function AddIncident() {
                     value={"Accessories_Issues"}
                     onChange={handleCategory}
                     required
-                    checked={incis.inciCategory === "Accessories_Issues"}
+                    checked={inciCategory === "Accessories_Issues"}
                   />{" "}
                   <Label check>Accessories Issues</Label>
                 </FormGroup>
@@ -292,7 +314,7 @@ function AddIncident() {
                     type="radio"
                     value={"New"}
                     onChange={handleStatus}
-                    checked={incis.inciStatus === "New"}
+                    checked={inciStatus === "New"}
                   />{" "}
                   <Label check>New</Label>
                 </FormGroup>
@@ -305,7 +327,7 @@ function AddIncident() {
                     value={"Inprogress"}
                     onChange={handleStatus}
                     required
-                    checked={incis.inciStatus === "Inprogress"}
+                    checked={inciStatus === "Inprogress"}
                   />{" "}
                   <Label check>Inprogress</Label>
                 </FormGroup>
@@ -318,7 +340,7 @@ function AddIncident() {
                     value={"Resolved"}
                     onChange={handleStatus}
                     required
-                    checked={incis.inciStatus === "Resolved"}
+                    checked={inciStatus === "Resolved"}
                   />{" "}
                   <Label check>Resolved</Label>
                 </FormGroup>
@@ -331,7 +353,7 @@ function AddIncident() {
                     value={"Rejected"}
                     onChange={handleStatus}
                     required
-                    checked={incis.inciStatus === "Rejected"}
+                    checked={inciStatus === "Rejected"}
                   />{" "}
                   <Label check>Rejected</Label>
                 </FormGroup>
@@ -348,15 +370,12 @@ function AddIncident() {
                 id="userId"
                 name="userId"
                 placeholder="Enter User Id"
-                type="text"
+                type="number"
                 required
-                defaultValue={user ? user.userId : incident.userId}
+                defaultValue={user ? user.userId : ""}
                 onChange={(e) => {
                   setUserId(e.target.value);
                 }}
-                // onClick={(e) => {
-                // 	setUser(e.target.value);
-                // }}
               />
               <button
                 className="btn btn-secondary"
@@ -390,7 +409,7 @@ function AddIncident() {
                       name="radio4"
                       type="radio"
                       value={"IT"}
-                      checked={"IT" === "IT"}
+                      checked={user.department === "IT"}
                     />{" "}
                     <Label check>IT</Label>
                   </FormGroup>

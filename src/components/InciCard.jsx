@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios"
+import base_url from "../api/Server";
 import { useNavigate } from "react-router-dom";
 import {
 	Card,
@@ -13,11 +15,28 @@ import {
 
 function InciCard({ incident, handleDel }) {
 
+	const [user, setUser] = useState({});
+
+
 	const navigate = useNavigate();
 
 	const handleClick = () => {
-		navigate("/addIncident", {state:incident});
+		navigate("/addIncident", {state: incident});
 	}
+
+	useEffect(() => {
+		console.log(incident);
+		axios.get(`${base_url}/user/${incident.user.userId}`).then(
+			(response) => {
+			  console.log(response.data);
+			  setUser(response.data);
+			},
+			(error) => {
+			  alert("Something went wrong: " + error.message);
+			  console.log(error);
+			}
+	)},
+	[]);
 
 	
 

@@ -92,7 +92,7 @@ function Home() {
 			<div className="row">
 				{incidents.length > 0 ? (
 					incidents.map((item) => (
-						<InciCard incident={item} handleDel={deleteIncident} />
+						<InciCard incident={item} handleDel={() => deleteIncident(item.inciId)} />
 					))
 				) : (
 					<div className="text-center">No Incidents</div>
