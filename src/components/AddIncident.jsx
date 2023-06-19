@@ -2,11 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Form, Row, FormGroup, Label, Input, Col, Container } from "reactstrap";
 import base_url from "../api/Server";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function AddIncident() {
   // useLocation Hook for retrieving the data sent to the current URL using useNavigation
   const location = useLocation();
+  const navigate = useNavigate();
 
   // incis represent a single Incident data
   // const [incis, setIncidents] = useState(() => {
@@ -101,6 +102,7 @@ function AddIncident() {
         console.log(error);
       }
     );
+    navigate('/');
   };
 
   const updateData = (data) => {
@@ -133,11 +135,23 @@ function AddIncident() {
         setIncident({ ...incident, user: response.data });
       },
       (error) => {
-        alert("Something went wrong: " + error.message);
+        alert("Invalid User-id entered!!!");
         console.log(error);
+        setUser("");
       }
     );
   };
+
+  const clearAll = () => {
+    setUser("");
+    setDescription("");
+    setInciCategory("");
+    setInciName("");
+    setInciPriority("");
+    setInciStatus("");
+    setIncident("");
+    setUserId("");
+  }
 
   return (
     <div>
@@ -289,10 +303,10 @@ function AddIncident() {
                   <Input
                     name="radio2"
                     type="radio"
-                    value={"Accessories_Issues"}
+                    value={"Accessory_Issues"}
                     onChange={handleCategory}
                     required
-                    checked={inciCategory === "Accessories_Issues"}
+                    checked={inciCategory === "Accessory_Issues"}
                   />{" "}
                   <Label check>Accessories Issues</Label>
                 </FormGroup>
@@ -324,10 +338,10 @@ function AddIncident() {
                   <Input
                     name="radio3"
                     type="radio"
-                    value={"Inprogress"}
+                    value={"In_Progress"}
                     onChange={handleStatus}
                     required
-                    checked={inciStatus === "Inprogress"}
+                    checked={inciStatus === "In_Progress"}
                   />{" "}
                   <Label check>Inprogress</Label>
                 </FormGroup>
@@ -391,8 +405,8 @@ function AddIncident() {
                 id="userName"
                 name="userName"
                 type="text"
-                placeholder={user.userName}
-                defaultValue={user.userName}
+                placeholder={user ? user.userName : ""}
+                defaultValue={user ? user.userName : ""}
                 readOnly
               />
             </FormGroup>
@@ -460,6 +474,7 @@ function AddIncident() {
                 type="reset"
                 className="btn btn-dark"
                 style={{ marginRight: "30%", width: "15%" }}
+                onClick={clearAll}
               >
                 Clear
               </button>

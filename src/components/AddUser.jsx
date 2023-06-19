@@ -148,7 +148,7 @@ function AddUser() {
 									<Input
 										id="userTel"
 										name="userTel"
-										placeholder="Enter User Name"
+										placeholder="Enter Mobile No."
 										type="tel"
 										onChange={(e) => {
 											setUsers({ ...singleUser, phone: e.target.value });

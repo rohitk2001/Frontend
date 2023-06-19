@@ -43,7 +43,7 @@ function Home() {
 	}, []);
 
 	const getfiltered = () => {
-		axios.get(`${base_url}/incidents/user/${location.state.id}`).then(
+		axios.get(`${base_url}/user/incidents/${location.state.userId}`).then(
 			(res) => {
 				console.log(res.data);
 				setInci(res.data);
@@ -58,10 +58,10 @@ function Home() {
 		console.log("Value has been passed !!");
 		// const filteredInci = incidents.filter((item) => { return item.userId.toString().includes(location.state.id) });
 		// setInci(filteredInci);
-		console.log(typeof location.state.id);
+		console.log(typeof location.state.userId);
 
 		// This line ensures that whenever we pass in empty text in search box it loads all the Incidents on Home
-		if (location.state.id !== "") getfiltered();
+		if (location.state.userId != "") getfiltered();
 		else getAllIncidents();
 
 		console.log(incidents);
