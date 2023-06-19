@@ -25,7 +25,7 @@ function Navbar() {
 				{/* <!-- Container wrapper --> */}
 				<div className="container">
 					{/* <!-- Navbar brand --> */}
-					<a className="navbar-brand" href="#">
+					<a className="navbar-brand" href="/">
 						<img
 							id="lowes-logo"
 							src={Loweslogo2}

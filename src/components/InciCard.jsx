@@ -44,16 +44,16 @@ function InciCard({ incident, handleDel }) {
         }}
       >
         <CardBody>
-          <CardTitle tag="h5">IncidentId: {incident.inciId}</CardTitle>
+          <CardTitle tag="h5"><b>{incident.inciName}</b></CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Incident Name: <b>{incident.inciName}</b>
+			IncidentId: {incident.inciId}
           </CardSubtitle>
         </CardBody>
-        <hr />
+        <hr style={{marginBottom: 0}} />
         <CardBody>
           <p style={{ fontFamily: "sans-serif" }}>
             <strong>Description</strong>
-            <CardText>{incident.description}</CardText>
+            <CardText style={{marginTop: 0}}>{incident.description}</CardText>
           </p>
 
           <CardText>
