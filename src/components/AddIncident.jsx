@@ -48,6 +48,7 @@ function AddIncident() {
     else {
       if (location.state !== null) {
         let inci = {
+          inciId: incident.inciId,
           inciName,
           inciCategory,
           inciPriority,
@@ -151,6 +152,7 @@ function AddIncident() {
     setInciStatus("");
     setIncident("");
     setUserId("");
+    window.history.replaceState({}, document.title)
   }
 
   return (
@@ -171,10 +173,7 @@ function AddIncident() {
                   placeholder="System Generated"
                   type="text"
                   readOnly
-                  value={incident ? incident.id : ""}
-                  // onChange={(e) => {
-                  //   setIncidents({ ...incis, id: e.target.value });
-                  // }}
+                  value={incident ? incident.inciId : ""}
                 />
               </FormGroup>
             </Col>

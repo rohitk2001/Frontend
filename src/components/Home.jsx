@@ -45,7 +45,8 @@ function Home() {
 	const getfiltered = () => {
 		axios.get(`${base_url}/user/incidents/${location.state.userId}`).then(
 			(res) => {
-				console.log(res.data);
+				//getAllIncidents();
+				// console.log(res.data);
 				setInci(res.data);
 			},
 			(error) => {
@@ -92,7 +93,7 @@ function Home() {
 			<div className="row">
 				{incidents.length > 0 ? (
 					incidents.map((item) => (
-						<InciCard incident={item} handleDel={() => deleteIncident(item.inciId)} />
+						<InciCard key={item.inciId} incident={item} handleDel={() => deleteIncident(item.inciId)} />
 					))
 				) : (
 					<div className="text-center">No Incidents</div>
