@@ -33,7 +33,6 @@ function AddUser() {
 
 	function handleForm(e) {
 		console.log(singleUser);
-
 		if (Object.keys(singleUser).length === 0)
 			alert("No Changes Found!! You may return to Home if you dont intend to");
 		else {
@@ -58,7 +57,7 @@ function AddUser() {
 		axios.put(`${base_url}/users`, data).then(
 			(response) => {
 				console.log(response);
-				console.log("Success Updating Data");
+				// console.log("Success Updating Data");
 				alert("User Updated !!");
 			},
 			(error) => {
@@ -69,12 +68,11 @@ function AddUser() {
 	};
 
 	const postData = (data) => {
-		console.log(data);
 		axios.post(`${base_url}/user/add`, data).then(
 			(response) => {
-				console.log(response);
+				console.log(response.data);
 				console.log("Success Posting Data");
-				alert("New User Created !!");
+				alert("New User Created !!\nYour User ID is " + response.data.userId);
 			},
 			(error) => {
 				alert("OOPS !! Some issue encountered. Please Try again");

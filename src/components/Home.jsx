@@ -83,11 +83,11 @@ function Home() {
 					to managing incidents, ensuring minimal disruption to our operations
 					and optimal customer satisfaction.
 				</p>
-				{/* <p class="lead">
-					<a class="btn btn-primary btn-lg" href="#" role="button">
+				<p className="lead">
+					<a className="btn btn-primary btn-lg"  rel="noreferrer" target="_blank" href="https://incident-management-backend-production.up.railway.app/swagger-ui.html" role="button">
 						Learn more
 					</a>
-				</p> */}
+				</p>
 			</div>
 
 			<div className="row">
