@@ -2,11 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Form, Row, FormGroup, Label, Input, Col, Container } from "reactstrap";
 import base_url from "../api/Server";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function AddIncident() {
   // useLocation Hook for retrieving the data sent to the current URL using useNavigation
   const location = useLocation();
+  const navigate = useNavigate();
 
   // incis represent a single Incident data
   // const [incis, setIncidents] = useState(() => {
@@ -101,6 +102,7 @@ function AddIncident() {
         console.log(error);
       }
     );
+    navigate('/');
   };
 
   const updateData = (data) => {
