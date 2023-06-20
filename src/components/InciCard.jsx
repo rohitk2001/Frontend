@@ -46,7 +46,7 @@ function InciCard({ incident, handleDel }) {
         <CardBody>
           <CardTitle tag="h5"><b>{incident.inciName}</b></CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-			IncidentId: {incident.inciId}
+			ID: {incident.inciId}
           </CardSubtitle>
         </CardBody>
         <hr style={{marginBottom: 0}} />
